@@ -26,79 +26,97 @@ workflow:
         Set appetite constraints that will drive all subsequent decisions.
 
     - agent: analyst
-      action: validate-problem-and-appetite
-      creates: problem-validation.md
+      action: validate-problem-and-appetite (use advanced-elicitation, interactive mode)
+      creates: docs/problem-validation.md
       requires: appetite_constraints
+      interactive: true
       notes: |
         ANALYST SHAPE UP FOCUS: Problem & Appetite Validation
-        - Validate raw problem definition with user evidence
-        - Validate appetite against problem significance  
-        - Identify complexity risks and rabbit holes using advanced elicitation
-        - Define circuit breakers and stopping triggers
+        - Use advanced elicitation to ask clarifying questions about the problem
+        - Validate raw problem definition with user evidence through interactive dialogue
+        - Validate appetite against problem significance via questioning
+        - Identify complexity risks and rabbit holes using advanced elicitation techniques
+        - Define circuit breakers and stopping triggers through user collaboration
         - NO solution exploration - pure problem/appetite validation
+        - MUST ask clarifying questions before proceeding
 
     - agent: pm
-      action: create-business-scope-analysis
-      creates: business-scope.md
-      requires: problem-validation.md
+      action: create-business-scope-analysis (use advanced-elicitation, interactive mode)
+      creates: docs/business-scope.md
+      requires: docs/problem-validation.md
+      interactive: true
       notes: |
         PM SHAPE UP FOCUS: Business Perspective & Scope
-        - Business perspective and stakeholder impact analysis
-        - Scope boundaries definition and "no-gos" 
-        - Risk mitigation from business/stakeholder perspective
-        - Success metrics and business outcomes
-        - Stakeholder communication planning
+        - Use advanced elicitation to understand business context through questions
+        - Business perspective and stakeholder impact analysis via interactive dialogue
+        - Scope boundaries definition and "no-gos" through collaborative discussion
+        - Risk mitigation from business/stakeholder perspective with user input
+        - Success metrics and business outcomes through guided questioning
+        - Stakeholder communication planning with user clarification
+        - MUST ask clarifying questions about business context and constraints
 
     - agent: ux-expert
-      action: create-fat-marker-sketches
-      creates: solution-sketches.md
-      requires: business-scope.md
+      action: create-fat-marker-sketches (use advanced-elicitation, interactive mode)
+      creates: docs/solution-sketches.md
+      requires: docs/business-scope.md
+      interactive: true
       notes: |
         UX EXPERT SHAPE UP FOCUS: Fat Marker Sketches & Affordances
-        - Fat marker solution sketches using breadboarding technique
-        - Define places, affordances, and connections (per Shape Up Ch.4)
-        - High-level user flows without visual details
-        - Solution direction preserving developer autonomy
-        - Focus on "what" and "where" not "how"
+        - Use advanced elicitation to understand user workflows through questions
+        - Fat marker solution sketches using breadboarding technique with user input
+        - Define places, affordances, and connections (per Shape Up Ch.4) collaboratively
+        - High-level user flows without visual details, validated through dialogue
+        - Solution direction preserving developer autonomy, confirmed with user
+        - Focus on "what" and "where" not "how" through guided questioning
+        - MUST ask clarifying questions about user workflows and solution approach
 
     - agent: po
-      action: validate-deliverability-and-risks
-      creates: deliverability-assessment.md
-      requires: solution-sketches.md
+      action: validate-deliverability-and-risks (use advanced-elicitation, interactive mode)
+      creates: docs/deliverability-assessment.md
+      requires: docs/solution-sketches.md
+      interactive: true
       notes: |
         PO SHAPE UP FOCUS: Deliverability & Risk Management
-        - Validate appetite vs scope alignment
-        - Assess deliverability within timeframe
-        - Circuit breaker validation and risk mitigation
-        - Task/epic breakdown (can be separate artifact)
-        - Betting table preparation
+        - Use advanced elicitation to understand delivery constraints through questions
+        - Validate appetite vs scope alignment through interactive dialogue
+        - Assess deliverability within timeframe with user input on team capabilities
+        - Circuit breaker validation and risk mitigation through collaborative discussion
+        - Task/epic breakdown (can be separate artifact) with user guidance
+        - Betting table preparation with user confirmation of key decisions
+        - MUST ask clarifying questions about team capacity and delivery constraints
 
     - agent: architect
-      action: technical-feasibility-review
-      creates: technical-assessment.md
-      requires: solution-sketches.md
+      action: technical-feasibility-review (use advanced-elicitation, interactive mode)
+      creates: docs/technical-assessment.md
+      requires: docs/solution-sketches.md
       optional: true
       condition: codebase_access_available
+      interactive: true
       notes: |
         ARCHITECT SHAPE UP FOCUS: Technical Feasibility (Optional)
-        - Technical feasibility within appetite constraints
-        - Integration complexity assessment with existing systems
-        - Technical risk identification and mitigation
-        - Architecture guidance without over-prescription
-        - Preserve implementation flexibility for developers
+        - Use advanced elicitation to understand technical constraints through questions
+        - Technical feasibility within appetite constraints via interactive dialogue
+        - Integration complexity assessment with existing systems through user input
+        - Technical risk identification and mitigation with collaborative discussion
+        - Architecture guidance without over-prescription, validated with user
+        - Preserve implementation flexibility for developers through guided questioning
+        - MUST ask clarifying questions about technical context and constraints
 
     - step: pitch_finalization
       agent: bmad-orchestrator
-      action: shape-up-methodology-compliance
-      creates: final-pitch.md
-      requires: validation-report.md
+      action: shape-up-methodology-compliance (use shape-up-final-pitch-tmpl)
+      creates: docs/shape-up-final-pitch.md
+      requires: docs/deliverability-assessment.md
+      template: shape-up-final-pitch-tmpl.yaml
       notes: |
         Final Shape Up methodology compliance check:
+        - Consolidate all artifacts into final pitch using template
         - Ensure all Shape Up elements present (problem, appetite, solution, circuit breakers)
         - Validate developer autonomy preserved throughout
         - Confirm appetite discipline maintained in all sections
         - Ready pitch for betting table presentation
         - Convert to final pitch format for team handoff
+        - Save final pitch to docs/ folder for persistence
 
   flow_diagram: |
     ```mermaid
@@ -173,12 +191,12 @@ workflow:
       - Available only when codebase access is present
 
   handoff_prompts:
-    orchestrator_to_analyst: "Appetite defined: {{appetite}}. Now validate the raw problem with user evidence and identify rabbit holes that could break this appetite. Use advanced elicitation for complexity risk analysis."
-    analyst_to_pm: "Problem and appetite validation complete. Now focus on business perspective, scope boundaries, stakeholder impact, and business risk mitigation."
-    pm_to_ux_expert: "Business scope analysis complete. Now create fat marker sketches using breadboarding - define places, affordances, and connections without visual details."
-    ux_expert_to_po: "Solution sketches complete. Now validate deliverability within appetite, assess risks, and prepare for betting table consideration."
-    po_to_architect: "Deliverability assessment complete. Optional: Provide technical feasibility review within appetite constraints (only if codebase access available)."
-    architect_to_orchestrator: "Technical assessment complete. Ready for final Shape Up methodology compliance validation."
-    po_to_orchestrator: "Deliverability assessment complete. Ready for final Shape Up methodology compliance validation (no architect needed)."
-    issues_found: "Issues found in [section] by [agent]. Please return to [responsible_agent] to fix within appetite constraints."
-    complete: "Shape Up pitch validated and ready for betting table consideration. All artifacts preserve developer autonomy while providing clear guidance."
+    orchestrator_to_analyst: "Appetite defined: {{appetite}}. Now validate the raw problem with user evidence and identify rabbit holes. Use advanced elicitation - ASK CLARIFYING QUESTIONS before proceeding. Save your analysis to docs/problem-validation.md"
+    analyst_to_pm: "Problem validation saved to docs/problem-validation.md. Now focus on business perspective and scope boundaries. Use advanced elicitation - ASK CLARIFYING QUESTIONS about business context. Save to docs/business-scope.md"
+    pm_to_ux_expert: "Business scope saved to docs/business-scope.md. Now create fat marker sketches using breadboarding technique. Use advanced elicitation - ASK CLARIFYING QUESTIONS about user workflows. Save to docs/solution-sketches.md"
+    ux_expert_to_po: "Solution sketches saved to docs/solution-sketches.md. Now validate deliverability within appetite. Use advanced elicitation - ASK CLARIFYING QUESTIONS about delivery constraints. Save to docs/deliverability-assessment.md"
+    po_to_architect: "Deliverability assessment saved. Optional: Provide technical feasibility review. Use advanced elicitation - ASK CLARIFYING QUESTIONS about technical context. Save to docs/technical-assessment.md"
+    architect_to_orchestrator: "Technical assessment complete. Ready for final pitch creation using shape-up-final-pitch-tmpl template."
+    po_to_orchestrator: "Deliverability assessment complete. Ready for final pitch creation using shape-up-final-pitch-tmpl template (no architect needed)."
+    issues_found: "Issues found in [section] by [agent]. Please return to [responsible_agent] to fix within appetite constraints. Remember to ask clarifying questions."
+    complete: "Shape Up pitch created and saved to docs/shape-up-final-pitch.md. All artifacts saved to docs/ folder and ready for betting table consideration."
