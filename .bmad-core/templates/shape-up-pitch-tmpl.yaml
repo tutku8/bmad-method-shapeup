@@ -1,0 +1,145 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: shape-up-pitch-template-v1
+  name: Shape Up Pitch Document
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/pitch-{{feature_name}}.md
+    title: "{{feature_name}} - Shape Up Pitch"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: problem
+    title: Problem
+    instruction: |
+      Define the raw problem with user evidence. This is the foundation of Shape Up - start with the problem, not the solution.
+      
+      Focus on:
+      - What problem are we solving? (specific user pain)
+      - Who experiences this and how often? (affected user segments)
+      - Current workarounds and their costs (evidence of pain)
+      - Business impact of not solving this (why it matters)
+    elicit: true
+    template: |
+      {{problem_description}}
+
+      **Who Experiences This:**
+      {{affected_users_and_frequency}}
+
+      **Current Pain Points:**
+      - {{pain_point_1}}
+      - {{pain_point_2}}
+      - {{pain_point_3}}
+
+      **Evidence:**
+      - {{evidence_1}}
+      - {{evidence_2}}
+      - {{evidence_3}}
+
+      **Current Workarounds:** {{workarounds_and_costs}}
+
+  - id: business-context
+    title: Business point of view
+    instruction: |
+      Explain the business impact and justify why this problem deserves the proposed appetite.
+      Include current metrics, business costs, and strategic importance.
+    elicit: true
+    template: |
+      {{business_impact_description}}
+
+      **Appetite:** {{weeks}} weeks, {{people}} person(s) ({{total_hours}} hours maximum)
+
+      **Circuit Breakers:**
+      - {{circuit_breaker_1}}
+      - {{circuit_breaker_2}}
+      - {{circuit_breaker_3}}
+
+  - id: solution
+    title: Solution
+    instruction: |
+      Create fat marker solution sketch. This should provide direction without constraining developer creativity.
+      
+      CRITICAL: Do NOT over-specify technical implementation. Focus on user flows and key elements.
+    elicit: true
+    sections:
+      - id: goals
+        title: Goals
+        instruction: |
+          Define what success looks like without prescribing how to achieve it.
+          Focus on user outcomes and business objectives.
+        type: bullet-list
+        template: "- {{goal_statement}}"
+      - id: details
+        title: Details
+        instruction: |
+          Provide fat marker sketch of solution elements. Include:
+          - Key user flows and interactions
+          - Core elements that must exist
+          - High-level approach without technical prescription
+        template: |
+          ### **{{solution_element_1_name}}**
+          {{solution_element_1_description}}
+
+          ### **{{solution_element_2_name}}**
+          {{solution_element_2_description}}
+
+          ### **{{solution_element_3_name}}**
+          {{solution_element_3_description}}
+      - id: out-of-scope
+        title: Out of scope
+        instruction: |
+          Define clear boundaries and "must nots" to protect appetite.
+          Include explicit exclusions and scope protection mechanisms.
+        sections:
+          - id: explicit-no-gos
+            title: Explicit No-Gos
+            type: bullet-list
+            template: "- {{exclusion_item}}"
+          - id: scope-protection
+            title: Scope Protection
+            type: bullet-list
+            template: "- {{protection_mechanism}}"
+
+  - id: analytics
+    title: Analytics - Leading & Lagging Indicators
+    instruction: |
+      Define how we'll measure success using leading and lagging indicators.
+      Follow the L&L framework for hypothesis-driven evaluation.
+    sections:
+      - id: lagging-indicators
+        title: Lagging indicator(s) - Why?
+        instruction: |
+          Define the ultimate outcomes we want to achieve.
+          These measure the business impact after implementation.
+        type: bullet-list
+        template: "- {{lagging_indicator}}"
+      - id: hypothesis-evaluation
+        title: Hypothesis & evaluation - How?
+        instruction: |
+          State your hypothesis about how the solution will create the desired outcomes.
+          Define how you'll evaluate if the hypothesis is correct.
+        template: |
+          **Hypothesis:** {{hypothesis_statement}}
+
+          **Evaluation Approach:**
+          - {{evaluation_method_1}}
+          - {{evaluation_method_2}}
+          - {{evaluation_method_3}}
+      - id: leading-indicators
+        title: Leading indicator(s) - What?
+        instruction: |
+          Define the early signals that indicate the solution is working.
+          These should be measurable soon after implementation.
+        type: bullet-list
+        template: "- {{leading_indicator}}"
+      - id: preliminary-targets
+        title: Preliminary targets
+        instruction: |
+          Set specific, measurable targets for both leading and lagging indicators.
+          Include baseline measurements where available.
+        type: bullet-list
+        template: "- {{target_statement}}"

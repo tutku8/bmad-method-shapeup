@@ -1,0 +1,265 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: shape-up-final-pitch-template-v1
+  name: Shape Up Final Pitch Document
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/{{feature_name}}-final-pitch.md
+    title: "{{feature_name}} - Final Pitch"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  agents:
+    - analyst: problem validation and appetite validation
+    - pm: business perspective and scope boundaries  
+    - ux-expert: fat marker sketches and solution direction
+    - po: deliverability and risk assessment
+    - architect: technical feasibility (optional, codebase access only)
+
+sections:
+  - id: problem
+    title: "# Problem"
+    agent: analyst
+    instruction: |
+      Define the raw problem with user evidence. Validate appetite against problem significance.
+      Focus on:
+      - What problem are we solving? (specific user pain with evidence)
+      - Who experiences this and how often? (affected user segments)
+      - Current workarounds and their costs
+      - Why this problem justifies the appetite investment
+    elicit: true
+    template: |
+      {{problem_statement}}
+
+      **Who Experiences This:**
+      - {{affected_user_segments}}
+
+      **Current Pain Points:**
+      - {{pain_point_1}}
+      - {{pain_point_2}} 
+      - {{pain_point_3}}
+
+      **Evidence:**
+      - {{evidence_1}}
+      - {{evidence_2}}
+      - {{evidence_3}}
+
+      **Current Workarounds:** {{workarounds_and_costs}}
+
+  - id: business-context
+    title: "## Business point of view"
+    agent: pm
+    instruction: |
+      Provide business perspective, stakeholder impact, and justify appetite investment.
+      Include current metrics, business costs, strategic importance, and stakeholder considerations.
+    elicit: true
+    template: |
+      {{business_impact_analysis}}
+
+      **Strategic Importance:** {{strategic_importance}}
+
+      **Current Business Metrics:**
+      - {{current_metric_1}}
+      - {{current_metric_2}}
+      - {{current_metric_3}}
+
+      **Business Costs of Inaction:** {{business_costs}}
+
+      **Stakeholder Impact:** {{stakeholder_impact}}
+
+  - id: appetite
+    title: "**Appetite:** {{appetite_definition}}"
+    agent: analyst
+    instruction: |
+      Define the appetite clearly - time investment we're willing to make.
+      Include circuit breakers and stopping triggers.
+    template: |
+      **Appetite:** {{appetite_definition}}
+
+      **Circuit Breakers:**
+      - {{circuit_breaker_1}}
+      - {{circuit_breaker_2}}
+
+      **What we're NOT willing to spend:** {{appetite_limits}}
+
+  - id: solution-divider
+    title: "---\n\n# Solution"
+    agent: ux-expert
+
+  - id: goals
+    title: "## Goals"
+    agent: pm
+    instruction: |
+      Define clear business outcomes and success criteria.
+      Focus on what success looks like, not how to achieve it.
+    elicit: true
+    template: |
+      {{primary_goal}}
+
+      **Success Criteria:**
+      - {{success_criteria_1}}
+      - {{success_criteria_2}}
+      - {{success_criteria_3}}
+
+      **Business Outcomes:**
+      - {{business_outcome_1}}
+      - {{business_outcome_2}}
+
+  - id: solution-details
+    title: "## Details"
+    agent: ux-expert
+    instruction: |
+      Create fat marker sketches using breadboarding technique from Shape Up Chapter 4.
+      Define places, affordances, and connections without visual details.
+      Focus on "what" and "where" not "how" to implement.
+    elicit: true
+    template: |
+      ### Fat Marker Solution Sketch
+
+      {{solution_overview}}
+
+      **Places (screens/views/dialogs):**
+      - {{place_1}}
+      - {{place_2}}
+      - {{place_3}}
+
+      **Affordances (user actions/buttons/fields):**
+      - {{affordance_1}}
+      - {{affordance_2}}
+      - {{affordance_3}}
+
+      **Key User Flows:**
+      {{key_user_flow_1}}
+      {{key_user_flow_2}}
+
+      **Integration Points:**
+      - {{integration_point_1}}
+      - {{integration_point_2}}
+
+  - id: no-gos
+    title: "### No-Gos (Scope Boundaries)"
+    agent: pm
+    instruction: |
+      Define clear scope boundaries and what we're explicitly NOT doing.
+      These protect the appetite and give developers clear constraints.
+    elicit: true
+    template: |
+      **What we're NOT doing:**
+      - {{no_go_1}}
+      - {{no_go_2}}
+      - {{no_go_3}}
+
+      **Future considerations (deferred):**
+      - {{deferred_1}}
+      - {{deferred_2}}
+
+      **Developer Decision Areas:**
+      - {{developer_autonomy_area_1}}
+      - {{developer_autonomy_area_2}}
+
+  - id: analytics-divider
+    title: "---\n\n# Analytics - Leading & Lagging Indicators"
+    agent: pm
+
+  - id: analytics-reference
+    title: "[L&L Indicators Guide & Example](https://www.notion.so/L-L-Indicators-Guide-Example-5e5df996d1254e31ac50f3b76123ca9e?pvs=21)"
+    agent: pm
+
+  - id: lagging-indicators
+    title: "### Lagging indicator(s) - Why?"
+    agent: pm
+    instruction: |
+      Define lagging indicators that show business impact after implementation.
+      These answer "why" this matters to the business.
+    elicit: true
+    template: |
+      - {{lagging_indicator_1}}
+      - {{lagging_indicator_2}}
+
+  - id: hypothesis-evaluation
+    title: "### Hypothesis & evaluation - How?"
+    agent: pm
+    instruction: |
+      Define how we'll measure success and validate our hypothesis.
+      Include measurement methods and evaluation criteria.
+    elicit: true
+    template: |
+      - {{hypothesis_1}}
+      - {{evaluation_method_1}}
+      - {{hypothesis_2}}
+      - {{evaluation_method_2}}
+
+  - id: leading-indicators
+    title: "### Leading indicator(s) - What?"
+    agent: pm
+    instruction: |
+      Define leading indicators that show early signals of success.
+      These answer "what" we'll see first if this is working.
+    elicit: true
+    template: |
+      - {{leading_indicator_1}}
+      - {{leading_indicator_2}}
+
+  - id: preliminary-targets
+    title: "### Preliminary targets"
+    agent: pm
+    instruction: |
+      Set preliminary targets for success metrics.
+      These should align with appetite and business expectations.
+    elicit: true
+    template: |
+      - {{target_1}}
+      - {{target_2}}
+      - {{target_3}}
+
+  - id: deliverability-assessment
+    title: "---\n\n# Deliverability Assessment"
+    agent: po
+    instruction: |
+      Assess deliverability within appetite constraints.
+      Include risk mitigation and betting table readiness.
+    elicit: true
+    template: |
+      **Deliverability within {{appetite_definition}}:** {{deliverability_assessment}}
+
+      **Key Risks:**
+      - {{risk_1}}
+      - {{risk_2}}
+
+      **Risk Mitigation:**
+      - {{mitigation_1}}
+      - {{mitigation_2}}
+
+      **Betting Table Readiness:** {{betting_table_readiness}}
+
+  - id: technical-feasibility
+    title: "---\n\n# Technical Feasibility (Optional)"
+    agent: architect
+    condition: codebase_access_available
+    instruction: |
+      Provide technical feasibility assessment within appetite constraints.
+      Focus on integration complexity and technical risks without over-prescription.
+    elicit: true
+    template: |
+      **Technical Feasibility:** {{technical_feasibility}}
+
+      **Integration Complexity:** {{integration_complexity}}
+
+      **Technical Risks:**
+      - {{technical_risk_1}}
+      - {{technical_risk_2}}
+
+      **Architecture Guidance:** {{architecture_guidance}}
+
+      **Implementation Flexibility Preserved:** {{flexibility_areas}}
+
+validation:
+  shape_up_compliance:
+    - appetite_drives_scope: true
+    - developer_autonomy_preserved: true
+    - circuit_breakers_defined: true
+    - fat_marker_sketches_not_detailed: true
+    - business_outcomes_clear: true
+    - deliverability_assessed: true
