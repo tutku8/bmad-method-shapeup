@@ -90,17 +90,19 @@ workflow:
       creates: docs/technical-assessment.md
       requires: docs/solution-sketches.md
       optional: true
-      condition: codebase_access_available
+      condition: user_explicitly_requests_architect
       interactive: true
       notes: |
-        ARCHITECT SHAPE UP FOCUS: Technical Feasibility (Optional)
-        - Use advanced elicitation to understand technical constraints through questions
+        ARCHITECT SHAPE UP FOCUS: Technical Feasibility (Only if User Requests)
+        - ONLY INVOKE IF USER EXPLICITLY ASKS FOR TECHNICAL ASSESSMENT
+        - Shape Up principle: Preserve developer autonomy by default
+        - Use advanced elicitation to understand technical constraints ONLY when requested
         - Technical feasibility within appetite constraints via interactive dialogue
         - Integration complexity assessment with existing systems through user input
-        - Technical risk identification and mitigation with collaborative discussion
-        - Architecture guidance without over-prescription, validated with user
-        - Preserve implementation flexibility for developers through guided questioning
-        - MUST ask clarifying questions about technical context and constraints
+        - Technical risk identification WITHOUT prescribing solutions
+        - Architecture guidance WITHOUT over-prescription, validated with user
+        - MUST preserve implementation flexibility for developers
+        - Focus on risks and constraints, NOT solutions
 
     - step: pitch_finalization
       agent: bmad-orchestrator
@@ -126,9 +128,9 @@ workflow:
         C --> D[pm: Business Scope Analysis]
         D --> E[ux-expert: Fat Marker Sketches]
         E --> F[po: Deliverability & Risk Assessment]
-        F --> G{Codebase Access?}
-        G -->|Yes| H[architect: Technical Feasibility]
-        G -->|No| I[bmad-orchestrator: Final Validation]
+        F --> G{User Requests Technical Assessment?}
+        G -->|Yes - Explicitly Requested| H[architect: Technical Feasibility ONLY]
+        G -->|No - Shape Up Default| I[bmad-orchestrator: Final Validation]
         H --> I
         I --> J{Issues Found?}
         J -->|Yes| K[Return to relevant agent]
@@ -141,8 +143,9 @@ workflow:
         style D fill:#FFE4B5
         style E fill:#DDA0DD
         style F fill:#F0E68C
-        style H fill:#87CEEB
+        style H fill:#FFB6C1
         style I fill:#ADD8E6
+        style G fill:#FFA500
     ```
 
   decision_guidance:
@@ -184,19 +187,22 @@ workflow:
       - Final deliverability assessment within appetite
 
     architect_shape_up_mode:
-      - Technical feasibility within appetite constraints (optional)
-      - Integration complexity with existing systems assessment
-      - Technical risk identification without over-prescription
-      - Architecture guidance preserving implementation flexibility
-      - Available only when codebase access is present
+      - ONLY INVOLVED IF USER EXPLICITLY REQUESTS technical assessment
+      - Shape Up default: Skip architect to preserve developer autonomy
+      - When invoked: Focus on risks and constraints, NOT solutions
+      - Technical feasibility within appetite constraints (no prescription)
+      - Integration complexity assessment WITHOUT solution details
+      - Technical risk identification WITHOUT implementation guidance
+      - Preserve complete implementation flexibility for developers
+      - Available only when user specifically asks for technical input
 
   handoff_prompts:
     orchestrator_to_analyst: "Appetite defined: {{appetite}}. Now validate the raw problem with user evidence and identify rabbit holes. Use advanced elicitation - ASK CLARIFYING QUESTIONS before proceeding. Save your analysis to docs/problem-validation.md"
     analyst_to_pm: "Problem validation saved to docs/problem-validation.md. Now focus on business perspective and scope boundaries. Use advanced elicitation - ASK CLARIFYING QUESTIONS about business context. Save to docs/business-scope.md"
     pm_to_ux_expert: "Business scope saved to docs/business-scope.md. Now create fat marker sketches using breadboarding technique. Use advanced elicitation - ASK CLARIFYING QUESTIONS about user workflows. Save to docs/solution-sketches.md"
     ux_expert_to_po: "Solution sketches saved to docs/solution-sketches.md. Now validate deliverability within appetite. Use advanced elicitation - ASK CLARIFYING QUESTIONS about delivery constraints. Save to docs/deliverability-assessment.md"
-    po_to_architect: "Deliverability assessment saved. Optional: Provide technical feasibility review. Use advanced elicitation - ASK CLARIFYING QUESTIONS about technical context. Save to docs/technical-assessment.md"
-    architect_to_orchestrator: "Technical assessment complete. Ready for final pitch creation using shape-up-final-pitch-tmpl template."
-    po_to_orchestrator: "Deliverability assessment complete. Ready for final pitch creation using shape-up-final-pitch-tmpl template (no architect needed)."
+    po_to_architect: "Deliverability assessment saved. USER HAS EXPLICITLY REQUESTED technical assessment. Focus on risks and constraints ONLY - do NOT prescribe solutions. Save to docs/technical-assessment.md"
+    architect_to_orchestrator: "Technical risk assessment complete (user requested). Ready for final pitch creation using shape-up-final-pitch-tmpl template."
+    po_to_orchestrator: "Deliverability assessment complete. Following Shape Up principles - proceeding to final pitch creation without technical prescription (preserves developer autonomy)."
     issues_found: "Issues found in [section] by [agent]. Please return to [responsible_agent] to fix within appetite constraints. Remember to ask clarifying questions."
     complete: "Shape Up pitch created and saved to docs/shape-up-final-pitch.md. All artifacts saved to docs/ folder and ready for betting table consideration."
