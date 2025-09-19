@@ -1,6 +1,8 @@
 # BMad Method Shape Up Edition - Git Ignore
 
 # Generated artifacts during planning sessions
+docs/working/*
+!docs/working/README.md
 docs/*-analysis.md
 docs/*-validation.md
 docs/*-assessment.md
@@ -101,9 +103,8 @@ docs/*-session-*.md
 docs/user-*.md
 docs/my-*.md
 
-# But preserve example artifacts
-!docs/examples/
-!docs/mw-2-0-*.md
+# But preserve template artifacts
+!docs/working/README.md
 !docs/*-example*.md
 !docs/template-*.md
 

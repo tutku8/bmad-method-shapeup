@@ -3,149 +3,151 @@ workflow:
   id: shape-up-planning
   name: Shape Up Pitch Creation
   description: >-
-    Shape Up methodology workflow that guides existing BMad agents to create
-    appetite-disciplined pitches with fat marker solutions and circuit breakers
+    Shape Up methodology workflow for incremental improvements to existing products.
+    Creates appetite-disciplined pitches with fat marker solutions and circuit breakers.
+    NOT suitable for 0-to-1 scenarios - designed for enhancing working products.
   type: shape-up
   project_types:
     - feature-enhancement
-    - new-feature
     - user-experience-improvement
     - system-improvement
     - brownfield-enhancement
+    - incremental-product-improvement
 
   sequence:
-    - step: appetite_definition
+    - step: workflow_initiation
       agent: bmad-orchestrator
-      action: define appetite constraints
+      action: initiate shape-up workflow
       notes: |
-        CRITICAL: Start with appetite, not solution exploration
-        Ask user:
-        - What's the time investment you're willing to make? (weeks, people)
-        - How much is this problem worth to your business?
-        - What are you NOT willing to spend on this?
-        Set appetite constraints that will drive all subsequent decisions.
+        Hello! I'm your BMad Orchestrator. I'll guide you through our Shape Up planning workflow for incremental product improvements.
+        
+        Let me hand you over to our Analyst to start the discovery and appetite setting process.
 
     - agent: analyst
-      action: validate-problem-and-appetite (use advanced-elicitation, interactive mode)
-      creates: docs/problem-validation.md
-      requires: appetite_constraints
-      interactive: true
+      action: discovery-and-appetite-setting (use advanced-elicitation)
+      creates: docs/working/discovery-analysis.md
       notes: |
-        ANALYST SHAPE UP FOCUS: Problem & Appetite Validation
-        - Use advanced elicitation to ask clarifying questions about the problem
-        - Validate raw problem definition with user evidence through interactive dialogue
-        - Validate appetite against problem significance via questioning
-        - Identify complexity risks and rabbit holes using advanced elicitation techniques
-        - Define circuit breakers and stopping triggers through user collaboration
-        - NO solution exploration - pure problem/appetite validation
-        - MUST ask clarifying questions before proceeding
+        Hi! I'm Mary, your Business Analyst. I'll handle the complete discovery phase.
+        
+        I'll gather information about:
+        - Your raw idea and the problem you're seeing
+        - Current state of your product in this area
+        - Help you define realistic appetite based on complexity
+        - Validate the problem with evidence and identify risks
+        
+        This creates the foundation for PM to build the Shape Up pitch.
 
     - agent: pm
-      action: create-business-scope-analysis (use advanced-elicitation, interactive mode)
-      creates: docs/business-scope.md
-      requires: docs/problem-validation.md
-      interactive: true
-      notes: |
-        PM SHAPE UP FOCUS: Business Perspective & Scope
-        - Use advanced elicitation to understand business context through questions
-        - Business perspective and stakeholder impact analysis via interactive dialogue
-        - Scope boundaries definition and "no-gos" through collaborative discussion
-        - Risk mitigation from business/stakeholder perspective with user input
-        - Success metrics and business outcomes through guided questioning
-        - Stakeholder communication planning with user clarification
-        - MUST ask clarifying questions about business context and constraints
-
-    - agent: ux-expert
-      action: create-fat-marker-sketches (use advanced-elicitation, interactive mode)
-      creates: docs/solution-sketches.md
-      requires: docs/business-scope.md
-      interactive: true
-      notes: |
-        UX EXPERT SHAPE UP FOCUS: Fat Marker Sketches & Affordances
-        - Use advanced elicitation to understand user workflows through questions
-        - Fat marker solution sketches using breadboarding technique with user input
-        - Define places, affordances, and connections (per Shape Up Ch.4) collaboratively
-        - High-level user flows without visual details, validated through dialogue
-        - Solution direction preserving developer autonomy, confirmed with user
-        - Focus on "what" and "where" not "how" through guided questioning
-        - MUST ask clarifying questions about user workflows and solution approach
-
-    - agent: po
-      action: validate-deliverability-and-risks (use advanced-elicitation, interactive mode)
-      creates: docs/deliverability-assessment.md
-      requires: docs/solution-sketches.md
-      interactive: true
-      notes: |
-        PO SHAPE UP FOCUS: Deliverability & Risk Management
-        - Use advanced elicitation to understand delivery constraints through questions
-        - Validate appetite vs scope alignment through interactive dialogue
-        - Assess deliverability within timeframe with user input on team capabilities
-        - Circuit breaker validation and risk mitigation through collaborative discussion
-        - Task/epic breakdown (can be separate artifact) with user guidance
-        - Betting table preparation with user confirmation of key decisions
-        - MUST ask clarifying questions about team capacity and delivery constraints
-
-    - agent: architect
-      action: technical-feasibility-review (use advanced-elicitation, interactive mode)
-      creates: docs/technical-assessment.md
-      requires: docs/solution-sketches.md
-      optional: true
-      condition: user_explicitly_requests_architect
-      interactive: true
-      notes: |
-        ARCHITECT SHAPE UP FOCUS: Technical Feasibility (Only if User Requests)
-        - ONLY INVOKE IF USER EXPLICITLY ASKS FOR TECHNICAL ASSESSMENT
-        - Shape Up principle: Preserve developer autonomy by default
-        - Use advanced elicitation to understand technical constraints ONLY when requested
-        - Technical feasibility within appetite constraints via interactive dialogue
-        - Integration complexity assessment with existing systems through user input
-        - Technical risk identification WITHOUT prescribing solutions
-        - Architecture guidance WITHOUT over-prescription, validated with user
-        - MUST preserve implementation flexibility for developers
-        - Focus on risks and constraints, NOT solutions
-
-    - step: pitch_finalization
-      agent: bmad-orchestrator
-      action: shape-up-methodology-compliance (use shape-up-final-pitch-tmpl)
-      creates: docs/shape-up-final-pitch.md
-      requires: docs/deliverability-assessment.md
+      action: create-shape-up-pitch (use shape-up-final-pitch-tmpl)
+      creates: docs/working/shape-up-pitch.md
+      requires: docs/working/discovery-analysis.md
       template: shape-up-final-pitch-tmpl.yaml
       notes: |
-        Final Shape Up methodology compliance check:
-        - Consolidate all artifacts into final pitch using template
-        - Ensure all Shape Up elements present (problem, appetite, solution, circuit breakers)
-        - Validate developer autonomy preserved throughout
-        - Confirm appetite discipline maintained in all sections
-        - Ready pitch for betting table presentation
-        - Convert to final pitch format for team handoff
-        - Save final pitch to docs/ folder for persistence
+        Hello! I'm John, your Product Manager. I'll create the main Shape Up pitch artifact based on the analyst's discovery.
+        
+        I'll create a comprehensive pitch including:
+        - Problem section with evidence
+        - Business perspective and appetite
+        - Solution goals and success criteria
+        - Analytics and measurement framework
+        
+        This follows Shape Up format while using BMad's structured approach.
+        SAVE OUTPUT: Pitch saved to docs/working/ folder. When finalized, you can copy to main docs/ folder.
+
+    - agent: ux-expert
+      action: create-fat-marker-sketches
+      creates: docs/working/solution-sketches.md
+      requires: docs/working/shape-up-pitch.md
+      notes: |
+        Hi! I'm Sally, your UX Expert. I'll create fat marker sketches using Shape Up breadboarding technique.
+        
+        I'll create text-based breadboards following Shape Up Chapter 4 methodology:
+        
+        **Breadboarding Elements:**
+        - **PLACES**: Screens, dialogs, views (underlined)
+        - **AFFORDANCES**: Buttons, fields, actions (listed below places)
+        - **CONNECTIONS**: Arrows showing flow between places
+        
+        Example text-based breadboard (like Shape Up's Invoice → Autopay example):
+        ```
+        Invoice
+        ├─ Turn on Autopay (button) → Setup Autopay
+        └─ Pay Now (button)
+        
+        Setup Autopay
+        ├─ CC fields
+        ├─ FI logo  
+        └─ Submit (button) → Confirm
+        
+        Confirm
+        └─ Thank You Message
+        ```
+        
+        This format is clean, readable, and follows Shape Up methodology exactly.
+        SAVE OUTPUT: Add sketches to the pitch or save as separate artifact.
+
+    - agent: po
+      action: task-breakdown-and-estimation
+      creates: docs/working/task-breakdown.md
+      requires: docs/working/shape-up-pitch.md, docs/working/solution-sketches.md
+      notes: |
+        Hello! I'm Sarah, your Product Owner. I'll break this down into estimatable tasks and coordinate with architect for rough estimates.
+
+    - agent: architect
+      action: provide-rough-estimates
+      updates: docs/working/task-breakdown.md
+      requires: docs/working/task-breakdown.md
+      notes: |
+        Hi! I'm Winston, your Architect. I'll provide rough estimates for appetite validation.
+
+    - step: appetite_validation
+      agent: bmad-orchestrator
+      action: validate estimates against appetite
+      requires: docs/working/task-breakdown.md
+      notes: |
+        Comparing estimates against appetite. If over budget, returning to PM for scope cutting.
+
+    - agent: pm
+      action: cut-scope-and-refine
+      updates: docs/working/shape-up-pitch.md
+      condition: estimates_exceed_appetite
+      notes: |
+        Estimates exceed appetite. Cutting scope to fit constraints and updating pitch.
+
+    - agent: po
+      action: validate-final-artifacts
+      validates: all_artifacts
+      notes: |
+        Final validation that all artifacts are complete and appetite-aligned.
 
   flow_diagram: |
     ```mermaid
     graph TD
-        A[Start: Raw Problem/Idea] --> B[bmad-orchestrator: Define Appetite]
-        B --> C[analyst: Problem & Appetite Validation]
-        C --> D[pm: Business Scope Analysis]
+        A[Start: Raw Problem/Idea] --> B[bmad-orchestrator: Workflow Initiation]
+        B --> C[analyst: Discovery & Appetite Setting]
+        C --> D[pm: Create Shape Up Pitch]
         D --> E[ux-expert: Fat Marker Sketches]
-        E --> F[po: Deliverability & Risk Assessment]
-        F --> G{User Requests Technical Assessment?}
-        G -->|Yes - Explicitly Requested| H[architect: Technical Feasibility ONLY]
-        G -->|No - Shape Up Default| I[bmad-orchestrator: Final Validation]
-        H --> I
-        I --> J{Issues Found?}
-        J -->|Yes| K[Return to relevant agent]
-        J -->|No| L[Final Shape Up Pitch Ready]
-        K --> F
+        E --> F[po: Task Breakdown]
+        F --> G[architect: Rough Estimates]
+        G --> H[bmad-orchestrator: Appetite Validation]
+        H --> I{Estimates Exceed Appetite?}
+        I -->|Yes - Over Budget| J[pm: Cut Scope & Update Pitch]
+        I -->|No - Within Budget| K[po: Final Validation]
+        J --> D
+        K --> L[Final Shape Up Pitch Ready]
 
-        style L fill:#90EE90
-        style B fill:#FFE4B5
-        style C fill:#FFE4B5
+        style M fill:#90EE90
+        style B fill:#87CEEB
+        style C fill:#98FB98
         style D fill:#FFE4B5
-        style E fill:#DDA0DD
-        style F fill:#F0E68C
-        style H fill:#FFB6C1
+        style E fill:#FFA500
+        style F fill:#DDA0DD
+        style G fill:#F0E68C
+        style H fill:#87CEEB
         style I fill:#ADD8E6
-        style G fill:#FFA500
+        style J fill:#FFA500
+        style K fill:#FFB6C1
+        style L fill:#F0E68C
     ```
 
   decision_guidance:
@@ -173,36 +175,38 @@ workflow:
       - Appetite discipline from business perspective
 
     ux_expert_shape_up_mode:
-      - Create fat marker sketches using breadboarding technique
-      - Define places, affordances, and connections (Shape Up Ch.4)
-      - High-level user flows without visual design details
-      - Solution direction that preserves developer autonomy
+      - Create fat marker sketches using breadboarding technique (Shape Up Ch.4)
+      - Option 1: Text-based breadboards (traditional Shape Up format)
+      - Option 2: Mermaid diagram breadboards (visual flow representation)
+      - Define places, affordances, and connections without visual design details
+      - Use mermaid flowcharts to show user flow: Places as nodes, affordances as arrow labels
+      - High-level user flows preserving developer autonomy
       - Focus on "what" and "where" not "how" to implement
 
     po_shape_up_mode:
-      - Validate appetite vs scope alignment and deliverability
-      - Circuit breaker validation and risk mitigation planning
-      - Task/epic breakdown (separate artifact if needed)
-      - Betting table preparation and pitch readiness
-      - Final deliverability assessment within appetite
+      - Break solution into basic tasks/epics for estimation
+      - Request rough estimates from architect for appetite validation
+      - Create task breakdown without detailed specifications
+      - Focus on logical work units that can be estimated
+      - Prepare for appetite vs estimate comparison
 
     architect_shape_up_mode:
-      - ONLY INVOLVED IF USER EXPLICITLY REQUESTS technical assessment
-      - Shape Up default: Skip architect to preserve developer autonomy
-      - When invoked: Focus on risks and constraints, NOT solutions
-      - Technical feasibility within appetite constraints (no prescription)
-      - Integration complexity assessment WITHOUT solution details
-      - Technical risk identification WITHOUT implementation guidance
-      - Preserve complete implementation flexibility for developers
-      - Available only when user specifically asks for technical input
+      - Provide rough estimates for PO task breakdown
+      - Estimate complexity and effort for appetite validation
+      - Identify technical risks that could affect estimates
+      - Flag integration challenges that could blow scope
+      - Focus on effort assessment, NOT solution prescription
+      - Preserve developer autonomy while providing realistic estimates
+      - Help validate if solution fits within appetite constraints
 
   handoff_prompts:
-    orchestrator_to_analyst: "Appetite defined: {{appetite}}. Now validate the raw problem with user evidence and identify rabbit holes. Use advanced elicitation - ASK CLARIFYING QUESTIONS before proceeding. Save your analysis to docs/problem-validation.md"
-    analyst_to_pm: "Problem validation saved to docs/problem-validation.md. Now focus on business perspective and scope boundaries. Use advanced elicitation - ASK CLARIFYING QUESTIONS about business context. Save to docs/business-scope.md"
-    pm_to_ux_expert: "Business scope saved to docs/business-scope.md. Now create fat marker sketches using breadboarding technique. Use advanced elicitation - ASK CLARIFYING QUESTIONS about user workflows. Save to docs/solution-sketches.md"
-    ux_expert_to_po: "Solution sketches saved to docs/solution-sketches.md. Now validate deliverability within appetite. Use advanced elicitation - ASK CLARIFYING QUESTIONS about delivery constraints. Save to docs/deliverability-assessment.md"
-    po_to_architect: "Deliverability assessment saved. USER HAS EXPLICITLY REQUESTED technical assessment. Focus on risks and constraints ONLY - do NOT prescribe solutions. Save to docs/technical-assessment.md"
-    architect_to_orchestrator: "Technical risk assessment complete (user requested). Ready for final pitch creation using shape-up-final-pitch-tmpl template."
-    po_to_orchestrator: "Deliverability assessment complete. Following Shape Up principles - proceeding to final pitch creation without technical prescription (preserves developer autonomy)."
+    orchestrator_to_analyst: "Welcome! I'm handing you over to our Business Analyst for complete discovery. She'll gather raw idea, current state, appetite, and problem validation."
+    analyst_to_pm: "Complete discovery finished. Raw idea, current state, and problem validation saved. Appetite defined: {{appetite}}. Now focus on business scope and boundaries. Save to docs/business-scope.md"
+    pm_to_ux_expert: "Shape Up pitch created and saved. Now create text-based fat marker sketches using breadboarding technique. Save to docs/solution-sketches.md"
+    ux_expert_to_po: "Solution sketches saved to docs/solution-sketches.md. Now break this down into basic tasks/epics for estimation validation. Save to docs/deliverability-assessment.md"
+    po_to_architect: "Task breakdown complete and saved. Now provide rough estimates for each task/epic to validate against appetite. Save to docs/technical-estimates.md"
+    architect_to_orchestrator: "Rough estimates provided. Ready for appetite validation - compare estimates against original appetite and determine if scope cutting needed."
+    orchestrator_to_pm_scope_cut: "Estimates exceed appetite by [amount]. Need to cut scope to fit appetite constraints. Please refine the business scope to reduce complexity."
+    orchestrator_final: "Estimates fit within appetite. Creating final Shape Up pitch using template."
     issues_found: "Issues found in [section] by [agent]. Please return to [responsible_agent] to fix within appetite constraints. Remember to ask clarifying questions."
     complete: "Shape Up pitch created and saved to docs/shape-up-final-pitch.md. All artifacts saved to docs/ folder and ready for betting table consideration."
