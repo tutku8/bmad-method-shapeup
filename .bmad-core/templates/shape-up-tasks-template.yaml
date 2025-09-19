@@ -1,0 +1,144 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: shape-up-tasks-template
+  name: Shape Up Task Breakdown (Interactive)
+  description: Interactive template for breaking down Shape Up solutions into estimatable tasks
+  output_file: docs/working/task-breakdown.md
+  mode: interactive
+  requires: docs/working/solution-sketches.md
+
+sections:
+  - id: header
+    title: Task Breakdown Header
+    instruction: Create header referencing solution sketches and appetite
+    elicit: false
+
+  - id: breakdown_approach
+    title: Task Breakdown Approach
+    instruction: |
+      Explain the approach for breaking down the solution into tasks.
+      Reference appetite constraints and estimation goals.
+      Consider team structure and parallel work opportunities.
+      Balance task granularity with estimation accuracy.
+    elicit: true
+    rationale_focus:
+      - Is our breakdown approach appropriate for this appetite?
+      - How are we balancing detail with speed?
+      - What assumptions are we making about the team?
+
+  - id: major_work_areas
+    title: Major Work Areas
+    instruction: |
+      Identify the major areas of work based on solution sketches.
+      Group related tasks into logical work streams.
+      Consider dependencies between different work areas.
+      Align work areas with team capabilities and appetite.
+    elicit: true
+    rationale_focus:
+      - Do these work areas make sense for parallel development?
+      - Are we missing any major areas of work?
+      - How do these areas align with our appetite?
+
+  - id: frontend_tasks
+    title: Frontend Development Tasks
+    instruction: |
+      Break down frontend work based on places and affordances from sketches.
+      Consider component development, user flows, and integrations.
+      Group tasks by complexity and dependency relationships.
+      Reference appetite constraints for scope decisions.
+    elicit: true
+    rationale_focus:
+      - Are we breaking down to the right level of detail?
+      - What frontend complexity might we be underestimating?
+      - How do these tasks align with our sketched solution?
+
+  - id: backend_tasks
+    title: Backend Development Tasks
+    instruction: |
+      Identify backend tasks for data, APIs, and business logic.
+      Consider integration points identified in solution sketches.
+      Break down by logical services or data flows.
+      Account for testing and deployment considerations.
+    elicit: true
+    rationale_focus:
+      - What backend complexity are we taking on?
+      - Are we considering all necessary integrations?
+      - How do these tasks support the frontend requirements?
+
+  - id: integration_tasks
+    title: Integration & Infrastructure Tasks
+    instruction: |
+      Detail integration work with existing systems.
+      Consider deployment, monitoring, and operational requirements.
+      Account for testing integrations and data migrations.
+      Reference integration points from solution sketches.
+    elicit: true
+    rationale_focus:
+      - What integration risks could affect our appetite?
+      - Are we accounting for all necessary infrastructure work?
+      - What operational concerns need to be addressed?
+
+  - id: testing_validation_tasks
+    title: Testing & Validation Tasks
+    instruction: |
+      Define testing strategy and validation tasks.
+      Consider user acceptance testing and success criteria validation.
+      Plan for both automated and manual testing approaches.
+      Align testing scope with appetite constraints.
+    elicit: true
+    rationale_focus:
+      - Is our testing approach appropriate for this appetite?
+      - What testing are we explicitly not doing?
+      - How will we validate success criteria?
+
+  - id: dependency_analysis
+    title: Dependency Analysis
+    instruction: |
+      Map dependencies between tasks and work areas.
+      Identify critical path items that could affect timeline.
+      Consider external dependencies and integration requirements.
+      Flag dependencies that could trigger circuit breakers.
+    elicit: true
+    rationale_focus:
+      - What dependencies could derail our appetite?
+      - Are we being realistic about parallel work opportunities?
+      - What external dependencies are we assuming?
+
+  - id: complexity_assessment
+    title: Complexity & Risk Assessment
+    instruction: |
+      Assess complexity and risk factors for each major work area.
+      Identify tasks that might exceed expected complexity.
+      Consider technical unknowns and learning curve factors.
+      Reference circuit breakers from earlier analysis.
+    elicit: true
+    rationale_focus:
+      - Where are we most likely to encounter surprises?
+      - What complexity factors might we be missing?
+      - Are we being honest about technical risks?
+
+  - id: estimation_preparation
+    title: Preparation for Estimation
+    instruction: |
+      Prepare task breakdown for architect estimation.
+      Ensure tasks are defined clearly enough for rough estimates.
+      Group tasks by estimation confidence level.
+      Note areas where estimates might be less reliable.
+    elicit: true
+    rationale_focus:
+      - Are our tasks defined well enough for estimation?
+      - Where do we expect estimation uncertainty?
+      - What additional context does the architect need?
+
+  - id: scope_flexibility
+    title: Scope Flexibility & Cut Lines
+    instruction: |
+      Identify which tasks could be cut if estimates exceed appetite.
+      Define minimum viable scope vs. full scope.
+      Consider which features provide the most value per complexity unit.
+      Prepare scope reduction options for appetite validation.
+    elicit: true
+    rationale_focus:
+      - What would we cut first to fit appetite?
+      - Are we identifying the right cut lines?
+      - How do we maintain solution coherence with cuts?

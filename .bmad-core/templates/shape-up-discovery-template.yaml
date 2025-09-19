@@ -1,0 +1,121 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: shape-up-discovery-template
+  name: Shape Up Discovery Analysis (Interactive)
+  description: Interactive template for Shape Up discovery with appetite setting
+  output_file: docs/working/discovery-analysis.md
+  mode: interactive
+
+sections:
+  - id: header
+    title: Discovery Analysis
+    instruction: Create header with project name and date
+    elicit: false
+
+  - id: raw_idea
+    title: Raw Idea & Initial Problem Statement
+    instruction: |
+      Work with user to articulate their raw idea and initial problem perception.
+      Ask clarifying questions about what they're seeing and why it matters.
+      Capture the unrefined problem statement before analysis.
+    elicit: true
+    rationale_focus: 
+      - What assumptions are we making about the problem?
+      - How well-defined is the user's initial perception?
+      - What areas need deeper exploration?
+
+  - id: current_state
+    title: Current State Analysis
+    instruction: |
+      Collaboratively analyze the current state of the product/system in this area.
+      Explore what exists today, how users currently handle this, and what's broken.
+      Document current user workflows and pain points.
+    elicit: true
+    rationale_focus:
+      - What evidence do we have about current state?
+      - Are we making assumptions about user behavior?
+      - What current workarounds exist and why?
+
+  - id: problem_validation
+    title: Problem Validation with Evidence
+    instruction: |
+      Work together to validate the problem with concrete evidence.
+      Look for support tickets, user feedback, competitive analysis, metrics.
+      Distinguish between perceived problems and validated problems.
+    elicit: true
+    rationale_focus:
+      - How strong is our evidence for this problem?
+      - What evidence are we missing?
+      - Could this be a symptom of a deeper issue?
+
+  - id: stakeholder_impact
+    title: Stakeholder Impact Analysis
+    instruction: |
+      Identify who is affected by this problem and how.
+      Consider different user types, internal teams, and business stakeholders.
+      Quantify impact where possible.
+    elicit: true
+    rationale_focus:
+      - Are we considering all affected stakeholders?
+      - How do we prioritize different stakeholder needs?
+      - What's the business impact if we don't solve this?
+
+  - id: appetite_setting
+    title: Appetite Definition
+    instruction: |
+      Work with user to define realistic appetite for this problem.
+      Consider problem significance, business impact, and available resources.
+      Set clear time boundaries (1-2 weeks, 6 weeks, etc.).
+      Explain appetite in Shape Up terms - what we're willing to spend, not estimates.
+    elicit: true
+    rationale_focus:
+      - Is this appetite realistic for the problem size?
+      - What are we saying no to with this appetite?
+      - How does this appetite compare to similar past projects?
+
+  - id: circuit_breakers
+    title: Circuit Breakers & Risk Factors
+    instruction: |
+      Identify potential complexity traps and rabbit holes.
+      Define circuit breakers that would trigger scope cutting.
+      Consider technical risks, integration challenges, and scope creep areas.
+    elicit: true
+    rationale_focus:
+      - What could cause this project to exceed appetite?
+      - Are our circuit breakers specific enough to be actionable?
+      - What risks are we not seeing?
+
+  - id: success_criteria
+    title: Success Criteria & Definition of Done
+    instruction: |
+      Define what success looks like for this problem.
+      Create measurable criteria that align with appetite.
+      Distinguish between must-have and nice-to-have outcomes.
+    elicit: true
+    rationale_focus:
+      - Are our success criteria measurable?
+      - Do they align with our appetite constraints?
+      - What are we explicitly not measuring?
+
+  - id: competitive_context
+    title: Competitive & Market Context
+    instruction: |
+      Analyze how competitors handle this problem.
+      Identify competitive advantages or disadvantages.
+      Consider market expectations and user comparisons.
+    elicit: false
+    rationale_focus:
+      - How does this position us competitively?
+      - Are we trying to match competitors or differentiate?
+
+  - id: recommendations
+    title: Recommendations for Solution Phase
+    instruction: |
+      Provide recommendations for the solution phase based on discovery.
+      Highlight key constraints, opportunities, and focus areas.
+      Note any assumptions that need validation during solution design.
+    elicit: true
+    rationale_focus:
+      - What are the most important insights for solution design?
+      - What constraints should guide the solution approach?
+      - Where do we need to be most careful about scope?

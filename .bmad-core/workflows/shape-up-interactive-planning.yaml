@@ -1,0 +1,249 @@
+# <!-- Powered by BMAD™ Core -->
+workflow:
+  id: shape-up-interactive-planning
+  name: Shape Up Interactive Planning
+  description: >-
+    Interactive Shape Up methodology that maintains BMAD's collaborative planning approach.
+    Uses incremental mode with appetite discipline built into each decision point.
+    Preserves "You Direct, AI Executes" philosophy while creating shape-up artifacts.
+  type: shape-up-interactive
+  project_types:
+    - feature-enhancement
+    - user-experience-improvement
+    - system-improvement
+    - brownfield-enhancement
+    - incremental-product-improvement
+
+  sequence:
+    - step: workflow_initiation
+      agent: bmad-orchestrator
+      action: initiate-interactive-shape-up
+      notes: |
+        Welcome to BMAD's Interactive Shape Up Planning! 
+        
+        This workflow combines Shape Up methodology with BMAD's collaborative approach:
+        - You'll work directly with agents in interactive mode
+        - Each artifact is built collaboratively with your input
+        - Appetite discipline is built into every decision point
+        - Circuit breakers protect against scope creep
+        
+        We'll start with our Analyst for discovery, but you'll be involved every step of the way.
+
+    - agent: analyst
+      action: interactive-discovery-and-appetite
+      template: shape-up-discovery-template.yaml
+      mode: interactive
+      creates: docs/working/discovery-analysis.md
+      notes: |
+        Hi! I'm Mary, your Business Analyst. Let's work together to understand your problem and set realistic appetite.
+        
+        I'll use BMAD's interactive mode to:
+        - Explore your raw idea through collaborative discussion
+        - Validate the problem with evidence together
+        - Help you define appetite based on our analysis
+        - Identify risks and circuit breakers collaboratively
+        
+        We'll work section by section, and you can use elicitation methods (1-9) to dive deeper into any area.
+
+    - agent: pm
+      action: interactive-pitch-creation
+      template: shape-up-pitch-template.yaml
+      mode: interactive
+      requires: docs/working/discovery-analysis.md
+      creates: docs/working/shape-up-pitch.md
+      notes: |
+        Hello! I'm John, your Product Manager. Now let's craft the Shape Up pitch together.
+        
+        Using the discovery analysis, we'll collaboratively build:
+        - Problem statement with evidence
+        - Business perspective and appetite validation
+        - Solution goals and boundaries
+        - Success criteria and measurement
+        
+        At each section, you can refine, explore alternatives, or dive deeper using elicitation methods.
+
+    - agent: ux-expert
+      action: interactive-solution-sketching
+      template: shape-up-sketches-template.yaml
+      mode: interactive
+      requires: docs/working/shape-up-pitch.md
+      creates: docs/working/solution-sketches.md
+      notes: |
+        Hi! I'm Sally, your UX Expert. Let's create fat marker sketches together using Shape Up breadboarding.
+        
+        We'll work interactively to:
+        - Define places (screens, views) collaboratively
+        - Identify affordances (buttons, actions) together
+        - Map connections and user flows
+        - Validate against appetite constraints
+        
+        You can explore different approaches and refine the solution at each step.
+
+    - step: appetite_checkpoint
+      agent: bmad-orchestrator
+      action: interactive-appetite-validation
+      requires: docs/working/solution-sketches.md
+      notes: |
+        Let's pause and validate our solution against appetite together.
+        
+        I'll present:
+        - Current scope vs. original appetite
+        - Complexity indicators from sketches
+        - Potential scope cuts if needed
+        
+        You decide: proceed with current scope, cut features, or explore alternatives.
+
+    - agent: po
+      action: interactive-task-breakdown
+      template: shape-up-tasks-template.yaml
+      mode: interactive
+      requires: docs/working/solution-sketches.md
+      creates: docs/working/task-breakdown.md
+      notes: |
+        Hello! I'm Sarah, your Product Owner. Let's break this down into tasks together.
+        
+        We'll collaboratively:
+        - Identify major work areas
+        - Break down into estimatable chunks
+        - Consider technical dependencies
+        - Validate against appetite at each step
+
+    - agent: architect
+      action: interactive-estimation
+      mode: interactive
+      requires: docs/working/task-breakdown.md
+      updates: docs/working/task-breakdown.md
+      notes: |
+        Hi! I'm Winston, your Architect. Let's estimate this work together.
+        
+        For each task area, we'll:
+        - Discuss complexity factors
+        - Consider technical risks
+        - Provide rough estimates
+        - Identify potential circuit breakers
+        
+        You can challenge estimates and explore alternatives.
+
+    - step: final_appetite_validation
+      agent: bmad-orchestrator
+      action: collaborative-scope-finalization
+      requires: docs/working/task-breakdown.md
+      notes: |
+        Final appetite validation! Let's review together:
+        
+        - Total estimate vs. appetite
+        - Risk factors and circuit breakers
+        - Scope adjustment options if needed
+        
+        You decide the final scope and we'll update all artifacts accordingly.
+
+  flow_diagram: |
+    ```mermaid
+    graph TD
+        A[Start: Raw Problem/Idea] --> B[bmad-orchestrator: Interactive Workflow Start]
+        B --> C[analyst: Interactive Discovery & Appetite]
+        C --> D{User Validates Discovery}
+        D -->|Refine| C
+        D -->|Approve| E[pm: Interactive Pitch Creation]
+        E --> F{User Validates Pitch}
+        F -->|Refine| E
+        F -->|Approve| G[ux-expert: Interactive Solution Sketching]
+        G --> H{User Validates Sketches}
+        H -->|Refine| G
+        H -->|Approve| I[bmad-orchestrator: Appetite Checkpoint]
+        I --> J{Within Appetite?}
+        J -->|No - Over Budget| K[Collaborative Scope Cutting]
+        K --> E
+        J -->|Yes - Within Budget| L[po: Interactive Task Breakdown]
+        L --> M{User Validates Tasks}
+        M -->|Refine| L
+        M -->|Approve| N[architect: Interactive Estimation]
+        N --> O{User Validates Estimates}
+        O -->|Refine| N
+        O -->|Approve| P[bmad-orchestrator: Final Validation]
+        P --> Q[Complete Shape Up Pitch Ready]
+
+        style A fill:#90EE90
+        style B fill:#87CEEB
+        style C fill:#98FB98
+        style E fill:#FFE4B5
+        style G fill:#FFA500
+        style I fill:#87CEEB
+        style L fill:#DDA0DD
+        style N fill:#F0E68C
+        style P fill:#87CEEB
+        style Q fill:#90EE90
+    ```
+
+  decision_guidance:
+    when_to_use:
+      - Want Shape Up methodology with BMAD's collaborative approach
+      - Need appetite discipline but with interactive refinement
+      - Prefer working with agents rather than sequential handoffs
+      - Want to explore alternatives and dive deeper at each step
+      - Value "You Direct, AI Executes" philosophy
+
+  interactive_principles:
+    user_control:
+      - User directs pacing and depth of exploration
+      - Elicitation methods (1-9) available at every step
+      - User validates and approves each artifact before proceeding
+      - Can return to previous steps for refinement
+
+    appetite_discipline:
+      - Appetite validation built into each decision point
+      - Circuit breakers presented as interactive choices
+      - Scope cutting done collaboratively, not automatically
+      - User decides final trade-offs and boundaries
+
+    collaborative_creation:
+      - All artifacts created through interactive templates
+      - Section-by-section refinement with user input
+      - Agent provides rationale for each decision
+      - User can challenge assumptions and explore alternatives
+
+  agent_guidance:
+    interactive_mode_requirements:
+      - ALWAYS use interactive mode with templates
+      - Present section content + detailed rationale
+      - Use 1-9 elicitation format when elicit: true
+      - Wait for user validation before proceeding
+      - Explain appetite implications of each decision
+
+    appetite_integration:
+      - Reference appetite in every major decision
+      - Present trade-offs in appetite terms
+      - Offer scope-cutting options when over budget
+      - Validate complexity against appetite constraints
+      - Make appetite impact explicit in rationale
+
+    circuit_breaker_handling:
+      - Present circuit breakers as decision points, not hard stops
+      - Explain implications of proceeding vs. cutting scope
+      - Offer alternative approaches when hitting limits
+      - Let user decide whether to trigger circuit breaker
+
+  handoff_prompts:
+    orchestrator_start: "Welcome to Interactive Shape Up Planning! We'll work collaboratively to create appetite-disciplined pitches. Starting with discovery - you'll be involved every step."
+    
+    analyst_handoff: "Discovery complete and validated! The problem is clear and appetite is set. Now let's work with PM to craft the business pitch collaboratively."
+    
+    pm_handoff: "Pitch created and refined together! Now let's work with UX to sketch the solution, keeping appetite constraints in mind."
+    
+    ux_handoff: "Solution sketches completed! Time for an appetite checkpoint - let's validate we're still within bounds before detailed planning."
+    
+    appetite_checkpoint: "Appetite validation: [status]. Ready to proceed with task breakdown, or shall we cut scope? Your decision."
+    
+    po_handoff: "Solution validated against appetite! Let's break this into tasks collaboratively, keeping estimation in mind."
+    
+    architect_handoff: "Tasks identified! Now let's estimate together, with appetite as our guide for complexity decisions."
+    
+    final_validation: "All estimates complete! Final appetite check - we're [status] relative to budget. Your call on final scope."
+    
+    complete: "Interactive Shape Up pitch complete! All artifacts created collaboratively and validated against appetite. Ready for betting table."
+
+  templates_required:
+    - shape-up-discovery-template.yaml
+    - shape-up-pitch-template.yaml
+    - shape-up-sketches-template.yaml
+    - shape-up-tasks-template.yaml

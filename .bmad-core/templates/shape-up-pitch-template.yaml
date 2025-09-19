@@ -1,0 +1,117 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: shape-up-pitch-template
+  name: Shape Up Pitch (Interactive)
+  description: Interactive template for creating Shape Up pitches with appetite discipline
+  output_file: docs/working/shape-up-pitch.md
+  mode: interactive
+  requires: docs/working/discovery-analysis.md
+
+sections:
+  - id: header
+    title: Shape Up Pitch Header
+    instruction: Create pitch title and summary based on discovery analysis
+    elicit: false
+
+  - id: problem_statement
+    title: Problem
+    instruction: |
+      Craft compelling problem statement based on discovery analysis.
+      Include who experiences this, current pain points, and evidence.
+      Reference specific evidence from discovery phase.
+      Keep focused on the validated problem, not solutions.
+    elicit: true
+    rationale_focus:
+      - Is this problem statement compelling and evidence-based?
+      - Are we staying solution-neutral in the problem description?
+      - Does this clearly show why this problem deserves the appetite?
+
+  - id: business_perspective
+    title: Business Point of View
+    instruction: |
+      Present business case and stakeholder impact from discovery.
+      Include strategic importance, costs of inaction, and competitive context.
+      Reference appetite and explain why this investment makes sense.
+      Connect to broader business goals and metrics.
+    elicit: true
+    rationale_focus:
+      - Does the business case justify the appetite?
+      - Are we connecting to measurable business outcomes?
+      - How does this align with strategic priorities?
+
+  - id: appetite_declaration
+    title: Appetite & Circuit Breakers
+    instruction: |
+      Clearly state appetite from discovery phase.
+      List circuit breakers that protect against scope creep.
+      Explain what we're NOT willing to spend beyond this appetite.
+      Make appetite constraints explicit and actionable.
+    elicit: true
+    rationale_focus:
+      - Is our appetite realistic for this problem?
+      - Are circuit breakers specific enough to be actionable?
+      - What are we saying no to with this appetite?
+
+  - id: solution_goals
+    title: Solution Goals
+    instruction: |
+      Define high-level solution goals without prescribing implementation.
+      Focus on outcomes and success criteria from discovery.
+      Keep at the "what" level, avoid the "how" level details.
+      Ensure goals align with appetite constraints.
+    elicit: true
+    rationale_focus:
+      - Are these goals achievable within our appetite?
+      - Are we staying at the right level of abstraction?
+      - Do these goals address the core problem?
+
+  - id: scope_boundaries
+    title: No-Gos & Scope Boundaries
+    instruction: |
+      Define what we're explicitly NOT doing in this project.
+      List features, integrations, or complexity areas that are out of scope.
+      Reference circuit breakers from discovery analysis.
+      Be specific about boundaries to prevent scope creep.
+    elicit: true
+    rationale_focus:
+      - Are our boundaries clear and specific?
+      - What scope creep risks are we protecting against?
+      - Are we being realistic about what fits in the appetite?
+
+  - id: success_metrics
+    title: Analytics & Success Measurement
+    instruction: |
+      Define leading and lagging indicators from discovery analysis.
+      Create hypothesis and evaluation methods.
+      Set preliminary targets that align with business goals.
+      Focus on metrics that validate problem-solution fit.
+    elicit: true
+    rationale_focus:
+      - Are these metrics meaningful for the business case?
+      - Can we actually measure these things?
+      - Do our targets reflect appetite-appropriate ambitions?
+
+  - id: deliverability_assessment
+    title: Deliverability Assessment
+    instruction: |
+      Assess deliverability within appetite constraints.
+      Reference risks and mitigation strategies from discovery.
+      Consider technical complexity, team capacity, and dependencies.
+      Provide confidence level for delivery within appetite.
+    elicit: true
+    rationale_focus:
+      - Are we being realistic about deliverability?
+      - What risks could blow our appetite?
+      - How confident are we in this assessment?
+
+  - id: betting_readiness
+    title: Betting Table Readiness
+    instruction: |
+      Summarize why this pitch is ready for betting table consideration.
+      Highlight appetite discipline, risk mitigation, and business impact.
+      Reference competitive positioning and strategic value.
+      Make the case for why this deserves a bet.
+    elicit: false
+    rationale_focus:
+      - Is this pitch compelling for decision makers?
+      - Have we addressed the key betting table concerns?

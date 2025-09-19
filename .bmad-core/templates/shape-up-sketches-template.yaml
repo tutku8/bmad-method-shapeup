@@ -1,0 +1,130 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: shape-up-sketches-template
+  name: Shape Up Solution Sketches (Interactive)
+  description: Interactive template for creating fat marker sketches using Shape Up breadboarding
+  output_file: docs/working/solution-sketches.md
+  mode: interactive
+  requires: docs/working/shape-up-pitch.md
+
+sections:
+  - id: header
+    title: Solution Sketches Header
+    instruction: Create header referencing the pitch and appetite constraints
+    elicit: false
+
+  - id: approach_overview
+    title: Fat Marker Solution Approach
+    instruction: |
+      Describe the high-level solution approach that addresses the problem.
+      Stay at fat marker level - broad strokes, not detailed design.
+      Reference appetite constraints and how they shape the approach.
+      Explain key design principles guiding the solution.
+    elicit: true
+    rationale_focus:
+      - Does this approach realistically fit within our appetite?
+      - Are we staying at the right level of abstraction?
+      - What design trade-offs are we making?
+
+  - id: current_state_analysis
+    title: Current State Analysis
+    instruction: |
+      Document current user flows and system state in the problem area.
+      Identify what exists today and what needs to change.
+      Map current pain points to solution opportunities.
+      Establish baseline for measuring improvement.
+    elicit: false
+    rationale_focus:
+      - Are we accurately representing the current state?
+      - What current patterns should we preserve vs. change?
+
+  - id: places_definition
+    title: Places (Screens, Views, Dialogs)
+    instruction: |
+      Define the key places (screens, views, dialogs) in the solution.
+      Use Shape Up breadboarding terminology - underline place names.
+      Focus on major user destinations, not every screen detail.
+      Consider appetite constraints when defining scope of places.
+    elicit: true
+    rationale_focus:
+      - Are we defining the right set of places for this appetite?
+      - What places are we intentionally leaving out?
+      - Do these places address the core user journeys?
+
+  - id: affordances_definition
+    title: Affordances (Actions, Buttons, Fields)
+    instruction: |
+      Define key affordances (buttons, fields, actions) for each place.
+      List what users can do in each place without visual design details.
+      Focus on essential interactions that solve the core problem.
+      Validate affordances against appetite and complexity constraints.
+    elicit: true
+    rationale_focus:
+      - Are these the minimal affordances needed to solve the problem?
+      - What interactions are we intentionally omitting?
+      - How do these affordances align with user mental models?
+
+  - id: connections_flow
+    title: Connections & User Flow
+    instruction: |
+      Map connections between places using arrows and flow descriptions.
+      Show how users move through the solution to accomplish their goals.
+      Use text-based breadboarding format or simple mermaid diagrams.
+      Validate flow complexity against appetite constraints.
+    elicit: true
+    rationale_focus:
+      - Is this flow as simple as possible for the appetite?
+      - Where might users get confused or lost?
+      - What alternative flows are we not supporting?
+
+  - id: integration_points
+    title: Integration Points & Dependencies
+    instruction: |
+      Identify key integration points with existing systems.
+      Note dependencies that could affect appetite or complexity.
+      Consider data flows, API integrations, and system boundaries.
+      Flag integration risks that could trigger circuit breakers.
+    elicit: true
+    rationale_focus:
+      - What integration complexity are we taking on?
+      - Which integrations are essential vs. nice-to-have?
+      - What integration risks could blow our appetite?
+
+  - id: appetite_validation
+    title: Appetite Validation Against Sketches
+    instruction: |
+      Validate the sketched solution against appetite constraints.
+      Identify areas where complexity might exceed appetite.
+      Suggest scope cuts or simplifications if needed.
+      Confirm the solution is appropriately sized for the appetite.
+    elicit: true
+    rationale_focus:
+      - Does this solution realistically fit within our appetite?
+      - What would we cut first if we needed to reduce scope?
+      - Are we being honest about complexity?
+
+  - id: developer_decision_areas
+    title: Developer Decision Areas
+    instruction: |
+      Identify areas where developers will make implementation decisions.
+      Preserve developer autonomy while providing sufficient direction.
+      Note constraints that must be respected vs. areas of flexibility.
+      Balance guidance with technical freedom.
+    elicit: true
+    rationale_focus:
+      - Are we giving developers enough autonomy?
+      - What constraints are essential vs. preferences?
+      - Where do developers need the most guidance?
+
+  - id: no_gos_refinement
+    title: Refined No-Gos Based on Sketches
+    instruction: |
+      Refine the no-gos list based on solution sketching insights.
+      Add specific features or complexity areas discovered during sketching.
+      Be explicit about what's deferred to future iterations.
+      Protect appetite boundaries discovered through design exploration.
+    elicit: true
+    rationale_focus:
+      - What new scope boundaries did we discover through sketching?
+      - Are we being specific enough about what's out of scope?
+      - What features might be tempting to add later?
