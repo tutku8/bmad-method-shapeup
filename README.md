@@ -26,9 +26,43 @@ This fork integrates **Shape Up methodology** by Ryan Singer (Basecamp) with BMa
 | **Current State** | Project documentation | Built-in current state analysis for incremental improvements |
 | **Estimation** | Detailed estimates | Rough estimates for appetite validation |
 
-## Shape Up Workflow
+## Shape Up Workflows
 
-The enhanced workflow follows BMad planning patterns while implementing Shape Up methodology:
+The BMad Shape Up Edition offers two workflow approaches:
+
+### 1. Interactive Planning Workflow (Recommended)
+
+**You Direct, AI Executes** - Collaborative approach where you work directly with agents:
+
+```mermaid
+graph TD
+    A[Start: Raw Problem/Idea] --> B[bmad-orchestrator: Interactive Workflow Start]
+    B --> C[analyst: Interactive Discovery & Appetite]
+    C --> D{User Validates Discovery}
+    D -->|Refine| C
+    D -->|Approve| E[pm: Interactive Pitch Creation]
+    E --> F{User Validates Pitch}
+    F -->|Refine| E
+    F -->|Approve| G[ux-expert: Interactive Solution Sketching]
+    G --> H{User Validates Sketches}
+    H -->|Refine| G
+    H -->|Approve| I[bmad-orchestrator: Appetite Checkpoint]
+    I --> J{Within Appetite?}
+    J -->|No - Over Budget| K[Collaborative Scope Cutting]
+    K --> E
+    J -->|Yes - Within Budget| L[po: Interactive Task Breakdown]
+    L --> M{User Validates Tasks}
+    M -->|Refine| L
+    M -->|Approve| N[architect: Interactive Estimation]
+    N --> O{User Validates Estimates}
+    O -->|Refine| N
+    O -->|Approve| P[bmad-orchestrator: Final Validation]
+    P --> Q[Complete Shape Up Pitch Ready]
+```
+
+### 2. Sequential Planning Workflow
+
+Traditional handoff approach for faster execution:
 
 ```mermaid
 graph TD
@@ -97,19 +131,30 @@ graph TD
 3. Upload the team bundle file
 4. Set instructions: "Your critical operating instructions are attached, do not break character as directed"
 
-**Step 2: Start Shape Up Planning**
+**Step 2: Choose Your Workflow**
+
+**Interactive Mode (Recommended):**
+```
+*workflow shape-up-interactive-planning
+```
+
+**Sequential Mode (Faster):**
 ```
 *workflow shape-up-planning
 ```
 
 **Step 3: Follow the Guided Process**
-The orchestrator will guide you through:
-1. **Analyst**: Complete discovery (raw idea + current state + appetite + validation)
-2. **PM**: Create Shape Up pitch (main artifact)
-3. **UX Expert**: Text-based breadboards
-4. **PO**: Task breakdown for estimation
-5. **Architect**: Rough estimates
-6. **Orchestrator**: Appetite validation and scope cutting if needed
+
+**Interactive Mode:**
+- Work directly with each agent in collaborative mode
+- Validate and refine each artifact before proceeding
+- Use elicitation methods (1-9) to dive deeper
+- You direct the pacing and depth of exploration
+
+**Sequential Mode:**
+- Agents work in handoff sequence
+- Faster execution with less collaboration
+- Final artifacts delivered for review
 
 ### Method 2: IDE Integration
 
@@ -118,9 +163,10 @@ The orchestrator will guide you through:
 @team/agents/bmad-orchestrator.txt
 ```
 
-**Step 2: Start Workflow**
+**Step 2: Choose Your Workflow**
 ```
-*workflow shape-up-planning
+*workflow shape-up-interactive-planning  # Interactive mode
+*workflow shape-up-planning              # Sequential mode
 ```
 
 ### Method 3: Individual Agent Usage
@@ -160,15 +206,37 @@ The workflow produces these working artifacts in `docs/working/` (not committed 
 
 **Orchestrator**: "Estimates fit appetite! Creating final pitch..." OR "Over budget - returning to PM for scope cutting..."
 
+## Example: Live Discovery Analysis
+
+This repository contains a real example of the Shape Up discovery process in action:
+
+**Current Project:** UptimeRobot Slack Integration  
+**Location:** `docs/working/discovery-analysis.md`  
+**Status:** Discovery phase complete, ready for pitch creation
+
+**Key Highlights:**
+- **Problem:** Slack deprecated incoming webhooks, affecting 50% of paying customers
+- **Appetite:** 6 weeks for native Slack app development  
+- **Business Impact:** New customer acquisition + competitive parity
+- **Circuit Breakers:** Slack App Directory approval delays, OAuth complexity
+
+This shows the Shape Up discovery methodology in practice, demonstrating how appetite discipline shapes problem analysis from the start.
+
 ## Quick Start
 
-### Using the Shape Up Workflow
+### Using Shape Up Workflows
 
+**Interactive Planning (Collaborative):**
+```bash
+*workflow shape-up-interactive-planning
+```
+
+**Sequential Planning (Fast):**
 ```bash
 *workflow shape-up-planning
 ```
 
-This will guide you through creating appetite-disciplined pitches using existing BMad agents in Shape Up mode.
+These workflows guide you through creating appetite-disciplined pitches using existing BMad agents in Shape Up mode.
 
 ### Example Output Format
 
@@ -224,9 +292,18 @@ Same as original BMad - this fork maintains full compatibility with existing BMa
 
 ### Shape Up Specific Files
 
-- `.bmad-core/workflows/shape-up-planning.yaml` - Main Shape Up workflow following BMad patterns
-- `.bmad-core/templates/shape-up-final-pitch-tmpl.yaml` - Final pitch template matching user format
-- `.bmad-core/templates/shape-up-pitch-tmpl.yaml` - Alternative Shape Up pitch template
+**Workflows:**
+- `.bmad-core/workflows/shape-up-interactive-planning.yaml` - Interactive Shape Up workflow (recommended)
+- `.bmad-core/workflows/shape-up-planning.yaml` - Sequential Shape Up workflow
+
+**Templates:**
+- `.bmad-core/templates/shape-up-discovery-template.yaml` - Interactive discovery analysis template
+- `.bmad-core/templates/shape-up-pitch-template.yaml` - Interactive pitch creation template
+- `.bmad-core/templates/shape-up-sketches-template.yaml` - Interactive solution sketching template
+- `.bmad-core/templates/shape-up-tasks-template.yaml` - Interactive task breakdown template
+- `.bmad-core/templates/shape-up-final-pitch-tmpl.yaml` - Final pitch output template
+
+**Supporting Files:**
 - `.bmad-core/tasks/create-shape-up-pitch.md` - Shape Up pitch creation task
 - `.bmad-core/checklists/shape-up-pitch-checklist.md` - Methodology validation checklist
 
